@@ -1,0 +1,62 @@
+# Presets
+# Keys: x, y, clr + filters
+---
+default:
+  clr: DeltaE
+  x: X
+  y: Y
+  bond_type:
+  - 0
+  DeltaE:
+  - -80.0
+  - 40.0
+
+1b:
+  clr: DeltaE
+  x: X
+  y: Y
+  bond_type:
+  - 1
+  DeltaE:
+  - -80.0
+  - 40.0
+
+1c:
+  bond_type:
+  - 2
+  clr: DeltaE
+  x: X
+  y: Y
+  DeltaE:
+  - -80.0
+  - 40.0
+
+1d:
+  bond_type:
+  - 3
+  clr: DeltaE
+  x: X
+  y: Y
+  DeltaE:
+  - -80.0
+  - 40.0
+
+1e:
+  bond_type:
+  - 4
+  clr: DeltaE
+  x: X
+  y: Y
+  DeltaE:
+  - -80.0
+  - 40.0
+
+1f:
+  bond_type:
+  - 5
+  clr: DeltaE
+  x: X
+  y: Y
+  DeltaE:
+  - -80.0
+  - 40.0

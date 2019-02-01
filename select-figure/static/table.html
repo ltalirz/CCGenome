@@ -1,0 +1,208 @@
+<style>
+.bk-layout-fixed {
+    margin: 0 auto;
+    text-align: center;
+}
+
+div.content {
+    margin: 0 auto;
+    display: inline-block;
+}
+
+/*
+p {
+    border: 1px solid red;
+}
+h1 {
+    margin: 1em 0 0 0;
+    color: #2e484c;
+    font-family: 'Julius Sans One', sans-serif;
+    font-size: 1.8em;
+    text-transform: uppercase;
+}
+*/
+a:link {
+    font-weight: bold;
+    text-decoration: none;
+    color: #0d8ba1;
+}
+a:visited {
+    font-weight: bold;
+    text-decoration: none;
+    color: #1a5952;
+}
+a:hover, a:focus, a:active {
+    text-decoration: underline;
+    color: #9685BA;
+}
+
+/* selection table */
+
+img.figure-thumbnail {
+   height: 175px;
+   border-radius: 30px;
+   padding:2px;
+   border:2px solid #14afff;
+   background-color:#fff;
+}
+
+img.default-figure {
+    height: 250px;
+}
+
+/* Container holding the image and the text */
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+/* Text to appear upon hover */
+.hover-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    color: #14afff;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.container:hover img {
+   opacity: 0.3;
+   filter: alpha(opacity=30);
+}
+
+.container:hover .hover-text {
+   opacity: 1.0;
+}
+
+figure {
+    text-align: center;
+    margin-inline-end: 0;
+    margin-inline-start: 0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin: 0; /* needed for safari */
+}
+
+figure figcaption {
+    padding: 5px;
+    text-align: center;
+}
+
+
+table.figures td {
+    padding: 10px;
+    text-align: center;
+    vertical-align: top;
+}
+
+
+</style>
+
+<div class="content" >
+
+<p>
+  Click on a figure for the <b>interactive plot</b>.
+</p>
+
+<table class="figures">
+<tr>
+
+
+  <td colspan=4>
+    <figure>
+      <div class=container>
+        <a href="figure">
+          <img class="figure-thumbnail default-figure" src="select-figure/static/images/Pd.png">
+          <div class="hover-text">Pd complexes</div>
+        </a>
+      </div>
+      <figcaption>
+      Pd complexes
+      </figcaption>
+    </figure>
+  </td>
+
+</tr>
+
+<tr>
+
+  <td>
+    <figure>
+      <div class=container>
+        <a href="figure?preset=1b">
+          <img class="figure-thumbnail" src="select-figure/static/images/Pt.png">
+          <div class="hover-text">Pt complexes</div>
+        </a>
+      </div>
+      <figcaption>
+      Pt complexes
+      </figcaption>
+    </figure>
+  </td>
+
+  <td>
+    <figure>
+      <div class=container>
+        <a href="figure?preset=1c">
+          <img class="figure-thumbnail" src="select-figure/static/images/Cu.png">
+          <div class="hover-text">Cu complexes</div>
+        </a>
+      </div>
+      <figcaption>
+      Cu complexes
+      </figcaption>
+    </figure>
+  </td>
+
+  <td>
+    <figure>
+      <div class=container>
+        <a href="figure?preset=1d">
+          <img class="figure-thumbnail" src="select-figure/static/images/Ni.png">
+          <div class="hover-text">Ni complexes</div>
+        </a>
+      </div>
+      <figcaption>
+          Ni complexes
+      </figcaption>
+    </figure>
+  </td>
+
+  <td>
+    <figure>
+      <div class=container>
+        <a href="figure?preset=1e">
+          <img class="figure-thumbnail" src="select-figure/static/images/Au.png">
+          <div class="hover-text">Au complexes</div>
+        </a>
+      </div>
+      <figcaption>
+          Au complexes
+      </figcaption>
+    </figure>
+  </td>
+
+</tr>
+<tr>
+
+  <td>
+    <figure>
+      <div class=container>
+        <a href="figure?preset=1f">
+          <img class="figure-thumbnail" src="select-figure/static/images/Ag.png">
+          <div class="hover-text">Ag complexes</div>
+        </a>
+      </div>
+      <figcaption>
+      Ag complexes
+      </figcaption>
+    </figure>
+  </td>
+
+</tr>
+</table>
+</div>
