@@ -267,8 +267,8 @@ def update_legends(ly):
             (q_clr["label"], "@color {}".format(q_clr["unit"])),
         ]
 
-    p.xaxis.axis_label = xlabel
-    p.yaxis.axis_label = ylabel
+#    p.xaxis.axis_label = xlabel
+#    p.yaxis.axis_label = ylabel
     p.title.text = clr_label
 
     url = "detail?name=@name"
