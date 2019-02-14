@@ -21,27 +21,27 @@ curdoc().template_variables["figures"] = [
         "image": "Pd.png",
     },
     {
-        "link": "figure",
+        "link": "figure?preset=1b",
         "label": "Pt complexes",
         "image": "Pt.png",
     },
     {
-        "link": "figure",
+        "link": "figure?preset=1c",
         "label": "Cu complexes",
         "image": "Cu.png",
     },
     {
-        "link": "figure",
+        "link": "figure?preset=1d",
         "label": "Ni complexes",
         "image": "Ni.png",
     },
     {
-        "link": "figure",
+        "link": "figure?preset=1e",
         "label": "Au complexes",
         "image": "Au.png",
     },
     {
-        "link": "figure",
+        "link": "figure?preset=1f",
         "label": "Ag complexes",
         "image": "Ag.png",
     },
