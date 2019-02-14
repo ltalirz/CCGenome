@@ -14,3 +14,35 @@ from bokeh.io import curdoc
 
 # Put the tabs in the current document for display
 curdoc().title = "C-C Cross-Coupling Genome"
+curdoc().template_variables["figures"] = [
+    {
+        "link": "figure",
+        "label": "Pd complexes",
+        "image": "Pd.png",
+    },
+    {
+        "link": "figure",
+        "label": "Pt complexes",
+        "image": "Pt.png",
+    },
+    {
+        "link": "figure",
+        "label": "Cu complexes",
+        "image": "Cu.png",
+    },
+    {
+        "link": "figure",
+        "label": "Ni complexes",
+        "image": "Ni.png",
+    },
+    {
+        "link": "figure",
+        "label": "Au complexes",
+        "image": "Au.png",
+    },
+    {
+        "link": "figure",
+        "label": "Ag complexes",
+        "image": "Ag.png",
+    },
+]

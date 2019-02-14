@@ -9,108 +9,34 @@
 
 {% block contents %}
 <div class="content" >
+<div class="content-float" >
 
 <p>
   Click on a figure for the <b>interactive plot</b>.
 </p>
 
-<table class="figures">
-<tr>
-
-
-  <td>
-    <figure>
-      <div class=container>
-        <a href="figure">
-          <img class="figure-thumbnail mdl-card mdl-shadow--2dp main-card default-figure" src="select-figure/static/images/Pd.png">
-          <div class="hover-text">Pd complexes</div>
-        </a>
-      </div>
-      <figcaption>
-      Pd complexes
-      </figcaption>
-    </figure>
-  </td>
-
-  <td>
-    <figure>
-      <div class=container>
-        <a href="figure?preset=1b">
-          <img class="figure-thumbnail mdl-card mdl-shadow--2dp main-card" src="select-figure/static/images/Pt.png">
-          <div class="hover-text">Pt complexes</div>
-        </a>
-      </div>
-      <figcaption>
-      Pt complexes
-      </figcaption>
-    </figure>
-  </td>
-
-  <td>
-    <figure>
-      <div class=container>
-        <a href="figure?preset=1c">
-          <img class="figure-thumbnail mdl-card mdl-shadow--2dp main-card" src="select-figure/static/images/Cu.png">
-          <div class="hover-text">Cu complexes</div>
-        </a>
-      </div>
-      <figcaption>
-      Cu complexes
-      </figcaption>
-    </figure>
-  </td>
-
-</tr>
-<tr>
-
-  <td>
+<div class="three-column-grid">
+  {% for fig in figures %}
+  <div class="grid-item">
     <figure>
       <div class="container">
-        <a href="figure?preset=1d">
-          <img class="figure-thumbnail mdl-card mdl-shadow--2dp main-card" src="select-figure/static/images/Ni.png">
-          <div class="hover-text">Ni complexes</div>
+        <a href="{{ fig.link }}">
+          <img class="figure-thumbnail mdl-card mdl-shadow--2dp main-card" src="select-figure/static/images/{{ fig.image }}">
+          <div class="hover-text">{{ fig.label }}</div>
         </a>
       </div>
       <figcaption>
-          Ni complexes
+          {{ fig.label }}
       </figcaption>
     </figure>
-  </td>
-
-  <td>
-    <figure>
-      <div class=container>
-        <a href="figure?preset=1e">
-          <img class="figure-thumbnail mdl-card mdl-shadow--2dp main-card" src="select-figure/static/images/Au.png">
-          <div class="hover-text">Au complexes</div>
-        </a>
-      </div>
-      <figcaption>
-          Au complexes
-      </figcaption>
-    </figure>
-  </td>
-
-  <td>
-    <figure>
-      <div class=container>
-        <a href="figure?preset=1f">
-          <img class="figure-thumbnail mdl-card mdl-shadow--2dp main-card" src="select-figure/static/images/Ag.png">
-          <div class="hover-text">Ag complexes</div>
-        </a>
-      </div>
-      <figcaption>
-      Ag complexes
-      </figcaption>
-    </figure>
-  </td>
-
-</tr>
-</table>
+  </div>
+  {% endfor %}
+</div>
 
 <!-- No actual bokeh content to display, but let's keep it here //-->
 {{ super() }}
 
+</div>
 </div>
 
 {% endblock %}
