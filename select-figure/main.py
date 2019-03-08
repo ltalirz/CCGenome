@@ -17,32 +17,32 @@ curdoc().title = "C-C Cross-Coupling Genome"
 curdoc().template_variables["figures"] = [
     {
         "link": "figure",
-        "label": "Pd complexes",
-        "image": "Pd.png",
-    },
-    {
-        "link": "figure?preset=1b",
-        "label": "Pt complexes",
-        "image": "Pt.png",
-    },
-    {
-        "link": "figure?preset=1c",
-        "label": "Cu complexes",
-        "image": "Cu.png",
-    },
-    {
-        "link": "figure?preset=1d",
         "label": "Ni complexes",
         "image": "Ni.png",
     },
     {
+        "link": "figure?preset=1b",
+        "label": "Pd complexes",
+        "image": "Pd.png",
+    },
+    {
+        "link": "figure?preset=1c",
+        "label": "Pt complexes",
+        "image": "Pt.png",
+    },
+    {
+        "link": "figure?preset=1d",
+        "label": "Cu complexes",
+        "image": "Cu.png",
+    },
+    {
         "link": "figure?preset=1e",
-        "label": "Au complexes",
-        "image": "Au.png",
+        "label": "Ag complexes",
+        "image": "Ag.png",
     },
     {
         "link": "figure?preset=1f",
-        "label": "Ag complexes",
-        "image": "Ag.png",
+        "label": "Au complexes",
+        "image": "Au.png",
     },
 ]
