@@ -9,7 +9,6 @@ import pandas as pd
 import sqlalchemy
 import re
 
-
 folder_db = 'data/'
 structure_extension = 'xyz'
 properties_csv = folder_db + '/all_complexes.csv'
@@ -19,7 +18,6 @@ db_params = 'sqlite:///{}database.db'.format(folder_db)
 
 # when storing structures on an object store
 os_url = "https://object.cscs.ch/v1/AUTH_b1d80408b3d340db9f03d373bbde5c1e/discover-sketchmap1/structures"
-
 
 data = None
 
@@ -100,8 +98,8 @@ def rename_columns(data):
         else:
             label_new = label.replace(' ', '_')
             data.rename(index=str, columns={label: label_new}, inplace=True)
-    
-    data.rename(index=str,columns={'Name':'name'},inplace=True)    
+
+    data.rename(index=str, columns={'Name': 'name'}, inplace=True)
 
     return data
 

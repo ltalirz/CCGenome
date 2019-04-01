@@ -22,7 +22,7 @@
 
 - column: bond_type
   type: list
-  label: Reaction
+  label: Metal
   values:
   - 0
   - 1
@@ -43,12 +43,12 @@
   type: list
   label: reaction
   values:
-  - 0
-  - 1
-  - 2
-  - 3
-  - 4
-  - 5
+  - Suzuki
+  - Kumada
+  - Negishi
+  - Stille
+  - Hiyama
+  - None
   labels:
   - Suzuki
   - Kumada

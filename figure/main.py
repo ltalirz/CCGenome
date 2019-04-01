@@ -16,7 +16,6 @@ import config
 from config import quantities, presets
 from figure.query import get_data_sqla as get_data
 from figure.query import data_empty
-from flask import request
 
 html = bmd.Div(
     text=open(join(config.static_dir, "description.html")).read(), width=800)
@@ -32,7 +31,7 @@ def get_preset_label_from_url():
     except (TypeError, KeyError):
         preset_label = 'default'
     if preset_label is not 'default':
-        preset_label=preset_label.decode("utf-8")
+        preset_label = preset_label.decode("utf-8")
     return preset_label
 
 
@@ -91,6 +90,7 @@ plot_options = [(q, quantities[q]['label']) for q in config.plot_quantities]
 inp_x = Select(title='X', options=plot_options)
 inp_y = Select(title='Y', options=plot_options)
 inp_clr = Select(title='Color', options=plot_options)
+
 #inp_clr = Select(
 #    title='Color', options=plot_options + [('bond_type', 'Bond type')])
 
@@ -115,13 +115,13 @@ def get_slider(desc, range, default=None):
 def get_select(desc, values, default=None, labels=None):  # pylint: disable=unused-argument
     if default is None:
         # by default, make all selections active
-#        default = range(len(values))
-        default = values
+        default = range(len(values))
 
     if labels is None:
         labels = map(str, values)
 
     # misuse tags to store values without mapping to str
+    # (tags are not used by bokeh directly)
     group = CheckboxButtonGroup(labels=labels, active=default, tags=values)
     group.on_change('active', on_filter_change)
 
@@ -159,7 +159,46 @@ source = bmd.ColumnDataSource(data=data_empty)
 hover = bmd.HoverTool(tooltips=[])
 tap = bmd.TapTool()
 
-colorscale=['#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#009900', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#000000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#FF1919', '#FF1919', '#FF1919', '#FF1919', '#FF1919', '#FF1919', '#FF1919', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0']
+colorscale = [
+    '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC',
+    '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC', '#CCFFCC',
+    '#CCFFCC', '#CCFFCC', '#CCFFCC', '#80FF66', '#80FF66', '#80FF66',
+    '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66',
+    '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66',
+    '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#80FF66',
+    '#80FF66', '#80FF66', '#80FF66', '#80FF66', '#19FF19', '#19FF19',
+    '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19',
+    '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#19FF19', '#009900',
+    '#009900', '#009900', '#009900', '#009900', '#009900', '#009900',
+    '#009900', '#009900', '#009900', '#009900', '#009900', '#009900',
+    '#009900', '#009900', '#009900', '#009900', '#009900', '#009900',
+    '#009900', '#009900', '#009900', '#009900', '#009900', '#009900',
+    '#009900', '#009900', '#009900', '#009900', '#009900', '#009900',
+    '#009900', '#009900', '#009900', '#009900', '#009900', '#009900',
+    '#009900', '#009900', '#009900', '#009900', '#009900', '#009900',
+    '#009900', '#000000', '#000000', '#000000', '#000000', '#000000',
+    '#000000', '#000000', '#000000', '#000000', '#000000', '#000000',
+    '#000000', '#000000', '#000000', '#000000', '#000000', '#000000',
+    '#000000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000',
+    '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000',
+    '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#B30000',
+    '#B30000', '#B30000', '#B30000', '#B30000', '#B30000', '#FF1919',
+    '#FF1919', '#FF1919', '#FF1919', '#FF1919', '#FF1919', '#FF1919',
+    '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080',
+    '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080', '#FF8080',
+    '#FF8080', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#FFCCCC',
+    '#FFCCCC', '#FFCCCC', '#FFCCCC', '#FFCCCC', '#C0C0C0', '#C0C0C0',
+    '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0',
+    '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0',
+    '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0',
+    '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0',
+    '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0',
+    '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0',
+    '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0',
+    '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0',
+    '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0', '#C0C0C0'
+]
+
 
 def create_plot():
     """Creates scatter plot.
@@ -192,37 +231,46 @@ def create_plot():
     p_new.title.text_font_size = '10pt'
     p_new.title.text_font_style = 'italic'
 
-#    if inp_clr.value == 'bond_type':
-#        from bokeh.transform import factor_cmap
-#        paper_palette = list(config.bondtype_dict.values())
-#        fill_color = factor_cmap(
-#            'color', palette=paper_palette, factors=bondtypes)
-#        p_new.circle(
-#            'x',
-#            'y',
-#            size=10,
-#            source=source,
-#            fill_color=fill_color,
-#            fill_alpha=0.6,
-#            line_alpha=0.4,
-#	    legend='color')
+    #    if inp_clr.value == 'bond_type':
+    #        from bokeh.transform import factor_cmap
+    #        paper_palette = list(config.bondtype_dict.values())
+    #        fill_color = factor_cmap(
+    #            'color', palette=paper_palette, factors=bondtypes)
+    #        p_new.circle(
+    #            'x',
+    #            'y',
+    #            size=10,
+    #            source=source,
+    #            fill_color=fill_color,
+    #            fill_alpha=0.6,
+    #            line_alpha=0.4,
+    #	    legend='color')
 
     if inp_clr.value == 'DeltaE':
-        from bokeh.transform import factor_cmap
-#       cmap = bmd.LinearColorMapper(palette=Viridis256)
-        cmap = bmd.LinearColorMapper(palette=colorscale,low=-80, high=30)
+        cmap = bmd.LinearColorMapper(palette=colorscale, low=-80, high=30)
         fill_color = {'field': 'color', 'transform': cmap}
-        p_new.circle('x', 'y', size=10, source=source, fill_color=fill_color, line_color=fill_color)
+        p_new.circle(
+            'x',
+            'y',
+            size=10,
+            source=source,
+            fill_color=fill_color,
+            line_color=fill_color)
         cbar = bmd.ColorBar(color_mapper=cmap, location=(0, 0))
         #cbar.color_mapper = bmd.LinearColorMapper(palette=Viridis256)
         p_new.add_layout(cbar, 'right')
 
-
     else:
         cmap = bmd.LinearColorMapper(palette=Viridis256)
-#        cmap = bmd.LinearColorMapper(palette=colorscale,low=-80, high=30)
+        #        cmap = bmd.LinearColorMapper(palette=colorscale,low=-80, high=30)
         fill_color = {'field': 'color', 'transform': cmap}
-        p_new.circle('x', 'y', size=10, source=source, fill_color=fill_color, line_color=fill_color)
+        p_new.circle(
+            'x',
+            'y',
+            size=10,
+            source=source,
+            fill_color=fill_color,
+            line_color=fill_color)
         cbar = bmd.ColorBar(color_mapper=cmap, location=(0, 0))
         #cbar.color_mapper = bmd.LinearColorMapper(palette=Viridis256)
         p_new.add_layout(cbar, 'right')
@@ -244,8 +292,8 @@ def update_legends(ly):
     p = ly.children[0].children[1]
 
     #title = "{} vs {}".format(q_x["label"], q_y["label"])
-    xlabel = "{} [{}]".format(q_x["label"], q_x["unit"])
-    ylabel = "{} [{}]".format(q_y["label"], q_y["unit"])
+    #xlabel = "{} [{}]".format(q_x["label"], q_x["unit"])
+    #ylabel = "{} [{}]".format(q_y["label"], q_y["unit"])
     xhover = (q_x["label"], "@x {}".format(q_x["unit"]))
     yhover = (q_y["label"], "@y {}".format(q_y["unit"]))
 
@@ -267,8 +315,8 @@ def update_legends(ly):
             (q_clr["label"], "@color {}".format(q_clr["unit"])),
         ]
 
-#    p.xaxis.axis_label = xlabel
-#    p.yaxis.axis_label = ylabel
+    #p.xaxis.axis_label = xlabel
+    #p.yaxis.axis_label = ylabel
     p.title.text = clr_label
 
     url = "detail?name=@name"
@@ -304,7 +352,7 @@ def update():
     source.data = get_data(projections, filters_dict, quantities, plot_info)
 
     if redraw_plot:
-#    if True:  # pylint: disable=using-constant-test
+        #    if True:  # pylint: disable=using-constant-test
         figure = create_plot()
         #TO DO: for some reason this destroys the coupling to source.data
         # to figure out why (and then restrict this to actual redrawing scenarios)
@@ -341,11 +389,10 @@ inp_clr.on_change('value', on_change_clr)
 # Create a panel with a new layout
 sizing_mode = 'fixed'
 inputs = widgetbox(*controls, sizing_mode=sizing_mode)
-l = layout(
-    [
-        [inputs, p],
-        [info_block],
-    ], sizing_mode=sizing_mode)
+l = layout([
+    [inputs, p],
+    [info_block],
+], sizing_mode=sizing_mode)
 update()
 
 # Create each of the tabs

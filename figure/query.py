@@ -39,7 +39,7 @@ def get_data_sqla(projections, sliders_dict, quantities, plot_info):
     results = engine.connect().execute(s).fetchall()
 
     nresults = len(results)
-  
+
     if not results:
         plot_info.text = "No matching Complexes found."
         return data_empty

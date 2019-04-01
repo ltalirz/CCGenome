@@ -45,7 +45,7 @@ def table_widget(entry):
     from bokeh.models.widgets import DataTable, TableColumn
 
     entry_dict = copy(entry.__dict__)
-#    for k, v in entry_dict.items():
+    #    for k, v in entry_dict.items():
     for k, v in entry.__dict__.items():
         if k == 'id' or k == '_sa_instance_state':
             del entry_dict[k]
@@ -107,9 +107,9 @@ load data "xyzstring"
 end "xyzstring"
 """.format(cif_str)
     ## Note: Need PHP server for approach below to work
-#        script="""set antialiasDisplay ON;
-#    load {};
-#    """.format(get_cif_url(entry.filename))
+    #        script="""set antialiasDisplay ON;
+    #    load {};
+    #    """.format(get_cif_url(entry.filename))
 )
 
 btn_download_cif.callback = bmd.CustomJS(
@@ -124,15 +124,14 @@ applet = JSMol(
 )
 
 sizing_mode = 'fixed'
-l = layout(
+l = layout([
     [
-        [
-            [[applet], [btn_download_cif]],
-            [[table_widget(entry)], [btn_download_table]],
-        ],
-        [plot_info],
+        [[applet], [btn_download_cif]],
+        [[table_widget(entry)], [btn_download_table]],
     ],
-    sizing_mode=sizing_mode)
+    [plot_info],
+],
+           sizing_mode=sizing_mode)
 
 # We add this as a tab
 tab = bmd.Panel(child=l, title=cof_name)
