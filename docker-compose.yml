@@ -3,14 +3,17 @@ version: '2'
 services:
   bokeh:
     restart: always
-    build: .
-    image: discover-cofs:master
+    build:
+      context: .
+      args:
+        BOKEH_PREFIX: /ccg
+    image: discover-ccg:master
     command: ["/opt/serve-app.sh"]
     environment:
       PYTHONPATH: '/project'
       SHELL: '/bin/bash'
 
     volumes:
-     - './data:/project/discover-cofs/data'
+     - './data:/project/discover-ccg/data'
     ports:
       - '3249:5006'

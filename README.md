@@ -44,7 +44,7 @@ pip install -e .
 ./prepare.sh
 docker-compose build
 docker-compose up
-# open http://localhost:3249/select-figure
+# open http://localhost:3245/ccg/select-figure
 ```
 
 ### Added comments ###
