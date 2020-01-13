@@ -30,6 +30,6 @@ with open(join(static_dir, "presets.yml"), 'r') as f:
 
 for k in presets.keys():
     if 'clr' not in presets[k].keys():
-        presets[k]['clr'] = presets['default']['clr']
+        presets[k]['clr'] = presets['Pd']['clr']
 
 max_points = 70000

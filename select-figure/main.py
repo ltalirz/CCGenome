@@ -15,32 +15,32 @@ from bokeh.io import curdoc
 curdoc().title = "C-C Cross-Coupling Genome"
 curdoc().template_variables["figures"] = [
     {
-        "link": "figure",
+        "link": "figure?preset=Ni",
         "label": "Ni complexes",
         "image": "Ni.png",
     },
     {
-        "link": "figure?preset=1b",
+        "link": "figure?preset=Pd",
         "label": "Pd complexes",
         "image": "Pd.png",
     },
     {
-        "link": "figure?preset=1c",
+        "link": "figure?preset=Pt",
         "label": "Pt complexes",
         "image": "Pt.png",
     },
     {
-        "link": "figure?preset=1d",
+        "link": "figure?preset=Cu",
         "label": "Cu complexes",
         "image": "Cu.png",
     },
     {
-        "link": "figure?preset=1e",
+        "link": "figure?preset=Ag",
         "label": "Ag complexes",
         "image": "Ag.png",
     },
     {
-        "link": "figure?preset=1f",
+        "link": "figure?preset=Au",
         "label": "Au complexes",
         "image": "Au.png",
     },

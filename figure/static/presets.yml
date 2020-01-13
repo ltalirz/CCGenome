@@ -1,7 +1,7 @@
 # Presets
 # Keys: x, y, clr + filters
 ---
-default:
+Pd:
   clr: DeltaE
   x: X
   y: Y
@@ -11,7 +11,7 @@ default:
   - -80.0
   - 40.0
 
-1b:
+Pt:
   clr: DeltaE
   x: X
   y: Y
@@ -21,7 +21,7 @@ default:
   - -80.0
   - 40.0
 
-1c:
+Cu:
   bond_type:
   - 2
   clr: DeltaE
@@ -31,7 +31,7 @@ default:
   - -80.0
   - 40.0
 
-1d:
+Ni:
   bond_type:
   - 3
   clr: DeltaE
@@ -41,7 +41,7 @@ default:
   - -80.0
   - 40.0
 
-1e:
+Au:
   bond_type:
   - 4
   clr: DeltaE
@@ -51,7 +51,7 @@ default:
   - -80.0
   - 40.0
 
-1f:
+Ag:
   bond_type:
   - 5
   clr: DeltaE

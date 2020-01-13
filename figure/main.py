@@ -17,8 +17,8 @@ from config import quantities, presets
 from figure.query import get_data_sqla as get_data
 from figure.query import data_empty
 
-html = bmd.Div(
-    text=open(join(config.static_dir, "description.html")).read(), width=800)
+html = bmd.Div(text=open(join(config.static_dir, "description.html")).read(),
+               width=800)
 
 redraw_plot = False
 
@@ -29,8 +29,8 @@ def get_preset_label_from_url():
     try:
         preset_label = args.get('preset')[0]
     except (TypeError, KeyError):
-        preset_label = 'default'
-    if preset_label is not 'default':
+        preset_label = 'Pd'
+    if preset_label is not 'Pd':
         preset_label = preset_label.decode("utf-8")
     return preset_label
 
@@ -41,7 +41,7 @@ def load_preset(attr, old, new):  # pylint: disable=unused-argument,redefined-bu
     try:
         preset = copy(presets[new])
     except KeyError:
-        preset = copy(presets['default'])
+        preset = copy(presets['Pd'])
     try:
         inp_x.value = preset.pop('x')
     except KeyError:
@@ -105,8 +105,11 @@ def on_filter_change(attr, old, new):  # pylint: disable=unused-argument
 def get_slider(desc, range, default=None):
     if default is None:
         default = range
-    slider = RangeSlider(
-        title=desc, start=range[0], end=range[1], value=default, step=0.1)
+    slider = RangeSlider(title=desc,
+                         start=range[0],
+                         end=range[1],
+                         value=default,
+                         step=0.1)
 
     slider.on_change('value', on_filter_change)
     return slider
@@ -249,13 +252,12 @@ def create_plot():
     if inp_clr.value == 'DeltaE':
         cmap = bmd.LinearColorMapper(palette=colorscale, low=-80, high=30)
         fill_color = {'field': 'color', 'transform': cmap}
-        p_new.circle(
-            'x',
-            'y',
-            size=10,
-            source=source,
-            fill_color=fill_color,
-            line_color=fill_color)
+        p_new.circle('x',
+                     'y',
+                     size=10,
+                     source=source,
+                     fill_color=fill_color,
+                     line_color=fill_color)
         cbar = bmd.ColorBar(color_mapper=cmap, location=(0, 0))
         #cbar.color_mapper = bmd.LinearColorMapper(palette=Viridis256)
         p_new.add_layout(cbar, 'right')
@@ -264,13 +266,12 @@ def create_plot():
         cmap = bmd.LinearColorMapper(palette=Viridis256)
         #        cmap = bmd.LinearColorMapper(palette=colorscale,low=-80, high=30)
         fill_color = {'field': 'color', 'transform': cmap}
-        p_new.circle(
-            'x',
-            'y',
-            size=10,
-            source=source,
-            fill_color=fill_color,
-            line_color=fill_color)
+        p_new.circle('x',
+                     'y',
+                     size=10,
+                     source=source,
+                     fill_color=fill_color,
+                     line_color=fill_color)
         cbar = bmd.ColorBar(color_mapper=cmap, location=(0, 0))
         #cbar.color_mapper = bmd.LinearColorMapper(palette=Viridis256)
         p_new.add_layout(cbar, 'right')
