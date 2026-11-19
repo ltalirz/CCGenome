@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+@theme {
+  --breakpoint-xs: 480px;
+}
+
+@layer base {
+  .mc-navbrand img {
+    max-height: 50px;
+  }
+
+  a {
+    @apply text-[#337ab7] hover:text-[#337ac8] hover:underline;
+  }
+
+  body {
+    background-color: aliceblue;
+  }
+}
+
+/* Two-handle range slider: two range inputs on one track, only their
+   thumbs take the pointer. */
+.range-slider {
+  position: relative;
+  height: 1.5rem;
+}
+.range-slider input[type="range"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  margin: 0;
+  background: none;
+  pointer-events: none;
+  appearance: none;
+  accent-color: #337ab7;
+}
+.range-slider input[type="range"]::-webkit-slider-thumb {
+  pointer-events: auto;
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 9999px;
+  background: #337ab7;
+  cursor: pointer;
+}
+.range-slider input[type="range"]::-moz-range-thumb {
+  pointer-events: auto;
+  width: 1rem;
+  height: 1rem;
+  border: none;
+  border-radius: 9999px;
+  background: #337ab7;
+  cursor: pointer;
+}
+.range-slider .track {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 2px;
+  background: #e2e8f0;
+}
+.range-slider .track-active {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: 2px;
+  background: #337ab7;
+  opacity: 0.5;
+}
