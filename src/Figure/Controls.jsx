@@ -1,6 +1,6 @@
 // The controls left of the plot: X, Y and colour quantities and the filters.
 import { quantityLabel } from "../ccgenome/config";
-import RangeSlider from "./RangeSlider";
+import { DualRangeSlider } from "mc-react-library";
 
 function Select({ title, value, options, onChange }) {
   return (
@@ -62,14 +62,16 @@ export default function Controls({ config, settings, onChange }) {
       {config.filterList.map((key) => {
         const q = config.quantities[key];
         return q.type === "float" ? (
-          <RangeSlider
-            key={key}
-            title={quantityLabel(q)}
-            range={q.range}
-            step={0.1}
-            value={settings.filters[key]}
-            onChange={setFilter(key)}
-          />
+          <div key={key} className="space-y-1">
+            <span className="block text-sm">{quantityLabel(q)}</span>
+            <DualRangeSlider
+              value={settings.filters[key]}
+              min={q.range[0]}
+              max={q.range[1]}
+              step={0.1}
+              onChange={setFilter(key)}
+            />
+          </div>
         ) : (
           <CheckboxButtons
             key={key}

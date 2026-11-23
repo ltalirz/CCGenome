@@ -1,7 +1,8 @@
 // The scatter plot (WebGL): one point per complex, coloured by a quantity;
-// hovering shows its values, clicking opens its page in a new tab.
+// hovering shows its values, clicking opens its page.
 import Plotly from "plotly.js-gl2d-dist-min";
 import { useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { colourScale, formatNumber } from "../ccgenome/colors";
 import { quantityLabel } from "../ccgenome/config";
@@ -14,6 +15,7 @@ function hoverLine(q, v) {
 export default function ScatterPlot({ config, table, rows, x, y, clr }) {
   const div = useRef(null);
   const names = useRef([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const qx = config.quantities[x];
@@ -61,10 +63,10 @@ export default function ScatterPlot({ config, table, rows, x, y, clr }) {
       el.removeAllListeners?.("plotly_click");
       el.on("plotly_click", (event) => {
         const point = event.points?.[0];
-        if (point) window.open(`?name=${encodeURIComponent(names.current[point.pointIndex])}`, "_blank");
+        if (point) navigate(`?name=${encodeURIComponent(names.current[point.pointIndex])}`);
       });
     });
-  }, [config, table, rows, x, y, clr]);
+  }, [config, table, rows, x, y, clr, navigate]);
 
   useEffect(() => {
     const el = div.current;

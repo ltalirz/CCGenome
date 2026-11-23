@@ -63,7 +63,7 @@ not a file (single-page app mode).
 - **Hover**: name, X, Y and colour quantity with their units, numbers in
   Bokeh's default tooltip format (`%d`, `%0.3f` for 0.1 < |v| < 1000,
   otherwise `%0.3e`; `src/ccgenome/colors.js`).
-- **Click** on a point opens `?name=<complex>` in a new tab (Bokeh `OpenURL`).
+- **Click** on a point opens `?name=<complex>` in the same tab (Bokeh `OpenURL` used a new one); a "Back" button returns to the plot.
 - **Duplicate X/Y/colour** gives the same warning text, listing the doubled
   quantity once (the Python code listed all three by mistake).
 
@@ -177,7 +177,8 @@ owners.**
 ## URLs
 
 One `index.html`; the page is chosen by the query string (`?preset=`,
-`?name=`, else the landing page), so no router. Assets are referenced from
+`?name=`, else the landing page), read with react-router's `useSearchParams`,
+so moving between pages keeps the app and its loaded data (no reload). Assets are referenced from
 the site root (Vite `base: "/"`), so with Cloudflare Pages' single-page
 fallback the old `/figure?preset=Ni` and `/detail?name=Pd_0.10` URLs load the
 right page; `/select-figure` gives the landing page. This assumes the app is

@@ -1,21 +1,21 @@
 // The scatter plot page (figure/): settings from the preset in the URL, the
 // controls, and the plot of the complexes passing the filters.
-import { useEffect, useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useMemo, useState } from "react";
 
-import { BASE, CONFIG } from "../appConfig";
-import { fetchTable } from "../ccgenome/data";
+import { CONFIG } from "../appConfig";
+import { fetchData } from "../ccgenome/data";
 import { duplicateWarning, filterRows, presetSettings } from "../ccgenome/filter";
 import Controls from "./Controls";
 import ScatterPlot from "./ScatterPlot";
 
 export default function FigurePage({ preset }) {
-  const [table, setTable] = useState(null);
-  const [error, setError] = useState(null);
   const [settings, setSettings] = useState(() => presetSettings(CONFIG, preset));
-
-  useEffect(() => {
-    fetchTable(BASE).then(setTable, (e) => setError(e.message));
-  }, []);
+  // the plot table: { name, X, Y, DeltaE, Reaction, bond_type }, one array per column
+  const { data: table, error } = useQuery({
+    queryKey: ["table"],
+    queryFn: async () => (await fetchData("table.json")) ?? Promise.reject(new Error("Could not download the table")),
+  });
 
   const rows = useMemo(() => (table ? filterRows(table, CONFIG, settings.filters) : []), [table, settings.filters]);
   const warning = duplicateWarning(CONFIG, settings.x, settings.y, settings.clr);
@@ -26,7 +26,7 @@ export default function FigurePage({ preset }) {
         <Controls config={CONFIG} settings={settings} onChange={setSettings} />
         <div className="text-sm whitespace-pre-line" role="status">
           {error
-            ? error
+            ? error.message
             : !table
               ? "Loading the complexes…"
               : rows.length === 0

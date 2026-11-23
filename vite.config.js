@@ -1,3 +1,6 @@
+import fs from "node:fs";
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
@@ -36,8 +39,36 @@ function yamlAsJson() {
   };
 }
 
+const DATA = path.join(path.dirname(fileURLToPath(import.meta.url)), "data");
+
+/** data/ (scripts/prepareForFrontend.py) at <base>data/: served in dev, copied on build */
+function publishData() {
+  let base = "/";
+  return {
+    name: "publish-data",
+    configResolved(config) {
+      base = config.base;
+    },
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const url = decodeURIComponent((req.url ?? "").split("?")[0]);
+        if (!url.startsWith(`${base}data/`)) return next();
+        const file = path.join(DATA, url.slice(base.length + "data/".length));
+        if (!file.startsWith(DATA + path.sep) || !fs.existsSync(file) || !fs.statSync(file).isFile()) return next();
+        res.setHeader("Content-Type", "application/json");
+        fs.createReadStream(file).pipe(res);
+      });
+    },
+    writeBundle(options) {
+      fs.cpSync(DATA, path.join(options.dir, "data"), { recursive: true });
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [react(), tailwindcss(), dropUnreferencedWasm(), yamlAsJson()],
+  plugins: [react(), tailwindcss(), dropUnreferencedWasm(), yamlAsJson(), publishData()],
+  // the data and the legacy app are not sources: don't watch their files
+  server: { watch: { ignored: ["**/data/**", "**/legacy-python/**"] } },
   optimizeDeps: {
     include: ["mc-react-header"],
     // Required to run wasm modules in dev mode for vite.

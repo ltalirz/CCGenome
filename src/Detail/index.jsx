@@ -1,8 +1,8 @@
 // The page of one complex (detail/): its 3D structure and its properties,
 // each downloadable.
-import { useEffect, useMemo, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useMemo } from "react";
 
-import { BASE } from "../appConfig";
 import { fetchComplex, propertiesJson } from "../ccgenome/data";
 import { fromXYZ } from "matsci-parse";
 import MoleculeViewer from "./MoleculeViewer";
@@ -20,17 +20,15 @@ const button =
 
 export default function DetailPage({ name }) {
   // undefined: loading, null: no such complex
-  const [entry, setEntry] = useState(undefined);
-  const [error, setError] = useState(null);
+  const { data: entry, error } = useQuery({ queryKey: ["complex", name], queryFn: () => fetchComplex(name) });
   // the molecule of the .xyz file (no cell drawn, as JSmol)
   const structure = useMemo(() => (entry ? fromXYZ(entry.xyz) : null), [entry]);
 
   useEffect(() => {
     document.title = `${name} - C-C Cross-Coupling Genome`;
-    fetchComplex(BASE, name).then(setEntry, (e) => setError(e.message));
   }, [name]);
 
-  if (error) return <p className="text-red-700">{error}</p>;
+  if (error) return <p className="text-red-700">{error.message}</p>;
   if (entry === undefined) return <p className="text-slate-500">Loading {name}…</p>;
   if (entry === null) return <p>No matching complex found for “{name}”.</p>;
 

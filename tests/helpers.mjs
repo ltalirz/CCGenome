@@ -13,4 +13,6 @@ const readYaml = (name) => parse(readFileSync(new URL(`src/config/${name}`, root
 
 export const config = buildConfig(readYaml("columns.yml"), readYaml("filters.yml"), readYaml("presets.yml"));
 
-export const table = () => readGzJson("public/data/table.json.gz");
+export const readJson = (path) => JSON.parse(readFileSync(new URL(path, root), "utf8"));
+
+export const table = () => readJson("data/table.json");

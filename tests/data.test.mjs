@@ -1,4 +1,4 @@
-// The web data (public/data/) holds every row of all_complexes.csv and every
+// The web data (data/) holds every row of all_complexes.csv and every
 // structure of structures.tar.gz, unchanged.
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -6,7 +6,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import { gunzipSync } from "node:zlib";
 
 import { propertiesJson, shardOf } from "../src/ccgenome/data.js";
-import { readGzJson, root, table as loadTable } from "./helpers.mjs";
+import { readJson, root, table as loadTable } from "./helpers.mjs";
 
 /** { path: text } of the regular files of a .tar.gz. */
 function readTarGz(path) {
@@ -44,13 +44,13 @@ test("table.json: every CSV row, in order, with the same values", () => {
 
 test("structures/: every complex, its CSV row and its .xyz file, unchanged", () => {
   const tar = readTarGz("legacy-python/data/structures.tar.gz");
-  const dir = new URL("public/data/structures/", root);
+  const dir = new URL("data/structures/", root);
   const published = {};
   for (const file of readdirSync(dir)) {
-    const { columns, complexes } = readGzJson(`public/data/structures/${file}`);
+    const { columns, complexes } = readJson(`data/structures/${file}`);
     assert.deepEqual(columns, header);
     for (const [name, entry] of Object.entries(complexes)) {
-      assert.equal(`${shardOf(name)}.json.gz`, file, name);
+      assert.equal(`${shardOf(name)}.json`, file, name);
       published[name] = entry;
     }
   }
@@ -73,10 +73,10 @@ test("properties JSON", () => {
 
 test("every structure reads as a molecule with the atoms of its .xyz file", async () => {
   const { cartesian, fromXYZ } = await import("matsci-parse");
-  const dir = new URL("public/data/structures/", root);
+  const dir = new URL("data/structures/", root);
   let count = 0;
   for (const file of readdirSync(dir)) {
-    for (const [name, { xyz }] of Object.entries(readGzJson(`public/data/structures/${file}`).complexes)) {
+    for (const [name, { xyz }] of Object.entries(readJson(`data/structures/${file}`).complexes)) {
       const lines = xyz.split("\n");
       const n = Number(lines[0]);
       const atoms = lines.slice(2, 2 + n).map((l) => l.trim().split(/\s+/));

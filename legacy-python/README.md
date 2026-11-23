@@ -17,13 +17,13 @@ app.
 - `data/database.db`: the database the deployed Bokeh app read. Not used by
   the web app; kept because it differs from the CSV (Reaction column, see
   `MIGRATION_NOTES.md`) and the fixtures compare against it.
-- `scripts/build_web_data.py`: CSV + structures -> `public/data/`
+- `../scripts/prepareForFrontend.py` (moved from here): CSV + structures -> `../data/`
   (standard library only).
 - `scripts/build_fixtures.py`: runs the SQL of `figure/query.py` for each
   preset and a set of filter settings, on the CSV and on `database.db`
   -> `tests/fixtures/filters.json.gz` (needs PyYAML).
 
 ```bash
-python3 legacy-python/scripts/build_web_data.py
+python3 scripts/prepareForFrontend.py
 python3 legacy-python/scripts/build_fixtures.py
 ```

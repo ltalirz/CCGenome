@@ -1,47 +1,36 @@
-// The data the app downloads (public/data/, written by
-// legacy-python/scripts/build_web_data.py).
+// The data the app downloads (data/, written by scripts/prepareForFrontend.py).
 
-/** File of public/data/structures/ holding a complex: Pd_0.10 -> Pd_0. */
+import { queryClient } from "../queryClient.js";
+
+/** File of data/structures/ holding a complex: Pd_0.10 -> Pd_0. */
 export function shardOf(name) {
   return name.split(".")[0];
 }
 
-/** Text of gzip-compressed bytes (or of plain bytes: servers may already have
- * decompressed a .gz file, e.g. Vite's dev server with Content-Encoding). */
-export async function gunzipText(blob) {
-  const magic = new Uint8Array(await blob.slice(0, 2).arrayBuffer());
-  if (magic[0] !== 0x1f || magic[1] !== 0x8b) return blob.text();
-  return new Response(blob.stream().pipeThrough(new DecompressionStream("gzip"))).text();
-}
-
-async function fetchJsonGz(url) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Could not download ${url} (HTTP ${res.status})`);
-  return JSON.parse(await gunzipText(await res.blob()));
-}
-
-/** The plot table: { name, X, Y, DeltaE, Reaction, bond_type }, one array per column. */
-export function fetchTable(base) {
-  return fetchJsonGz(`${base}data/table.json.gz`);
-}
+/** a JSON file of data/, fetched once (cached by TanStack Query); null if there is none */
+export const fetchData = (path) =>
+  queryClient.ensureQueryData({
+    queryKey: ["data", path],
+    queryFn: async () => {
+      const res = await fetch(`${import.meta.env.BASE_URL}data/${path}`);
+      // a static host may answer an unknown path with the app's index.html
+      if (res.status === 404 || !res.headers.get("content-type")?.includes("json")) return null;
+      if (!res.ok) throw new Error(`Could not download ${path} (HTTP ${res.status})`);
+      return res.json();
+    },
+  });
 
 /**
  * One complex: { columns: CSV header, row: CSV fields, xyz: text }, or null
  * if there is no complex of that name.
  */
-export async function fetchComplex(base, name) {
+export async function fetchComplex(name) {
   const shard = shardOf(name);
   // Names are <metal>_<n>.<m>; anything else cannot be in a file
   if (!/^[A-Za-z]+_\d+$/.test(shard)) return null;
-  const res = await fetch(`${base}data/structures/${shard}.json.gz`);
-  if (res.status === 404) return null;
-  if (!res.ok) throw new Error(`Could not download the structure (HTTP ${res.status})`);
-  const text = await gunzipText(await res.blob());
-  // A static host may answer an unknown path with the app's index.html
-  if (!text.startsWith("{")) return null;
-  const { columns, complexes } = JSON.parse(text);
-  const entry = complexes[name];
-  return entry ? { columns, ...entry } : null;
+  const file = await fetchData(`structures/${shard}.json`);
+  const entry = file?.complexes[name];
+  return entry ? { columns: file.columns, ...entry } : null;
 }
 
 /**
