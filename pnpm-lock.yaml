@@ -18,8 +18,8 @@ importers:
         specifier: 0.7.3
         version: 0.7.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       mc-react-library:
-        specifier: ^0.7.13
-        version: 0.7.13(matsci-parse@0.18.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.7.14
+        version: 0.7.14(matsci-parse@0.18.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       plotly.js-gl2d-dist-min:
         specifier: ^3.7.0
         version: 3.7.0
@@ -889,8 +889,8 @@ packages:
       react: ^18.2.0
       react-dom: ^18.2.0
 
-  mc-react-library@0.7.13:
-    resolution: {integrity: sha512-e+3JNEDJbQyxRCHmxuvmxBW+vAXXbAzaIPVfw4G3eK83E749XJmOpEvh8RBk/zQK1XhpEmtqtDYnnkJBgyiO9w==}
+  mc-react-library@0.7.14:
+    resolution: {integrity: sha512-mrgGAAYWNrbFfCLX+HyZ9++u/hNAwuyG+74PSaxzTL1+lqNuRatgZKLvs9/5qlGXfGXX8ahG+5Df3dK6eGF9Ow==}
     peerDependencies:
       matsci-parse: '>=0.18.9'
       react: ^18.2.0
@@ -1666,7 +1666,7 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  mc-react-library@0.7.13(matsci-parse@0.18.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  mc-react-library@0.7.14(matsci-parse@0.18.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       matsci-parse: 0.18.23
       react: 18.3.1

@@ -1,6 +1,5 @@
 // The information accordions of the landing page.
-import { useState } from "react";
-import { DoiBadge, McInfoAccordion } from "mc-react-library";
+import { DoiBadge, McInfoAccordions } from "mc-react-library";
 
 const ARCHIVE = "https://doi.org/10.24435/materialscloud:2019.0007/v3";
 
@@ -8,13 +7,17 @@ function AboutContent() {
   return (
     <div className="space-y-2">
       <p>
-        We present sketch-maps for 25,112 catalysts, categorized by metal type. Each catalyst’s name is expressed in the
-        form <i>metal</i>_L<sub>1</sub>_L<sub>2</sub> and is colored by the value of its energy-based descriptor (i.e., substrate binding energy) for
-        different cross-coupling reactions. The color code corresponds to the volcano plateau of the different
-        reactions, where black represents the plateau region for Suzuki coupling. Green and red shades (see color bar)
-        indicate catalysts with ideal thermodynamics (i.e., species that fall off the plateau) for other cross-coupling
-        reactions (i.e., Kumada, Negishi, Stille, and Hiyama). Catalysts depicted in gray are not ideal for any of the
-        coupling reactions studied.
+        We present sketch-maps for 25,112 catalysts, categorized by metal type.
+        Each catalyst’s name is expressed in the form "metal_L<sub>1</sub>_L
+        <sub>2</sub>" and is colored by the value of its energy-based descriptor
+        (i.e., substrate binding energy) for different cross-coupling reactions.
+        The color code corresponds to the volcano plateau of the different
+        reactions, where black represents the plateau region for Suzuki
+        coupling. Green and red shades (see color bar) indicate catalysts with
+        ideal thermodynamics (i.e., species that fall off the plateau) for other
+        cross-coupling reactions (i.e., Kumada, Negishi, Stille, and Hiyama).
+        Catalysts depicted in gray are not ideal for any of the coupling
+        reactions studied.
       </p>
       <p>
         The chemical structures of the 91 ligands are available in the{" "}
@@ -46,10 +49,5 @@ const ACCORDIONS = [
 
 /** The information accordions, one open at a time. */
 export default function InfoAccordions() {
-  const [open, setOpen] = useState(null);
-  return ACCORDIONS.map(({ title, content }, i) => (
-    <McInfoAccordion key={title} title={title} open={open === i} onToggle={() => setOpen(open === i ? null : i)}>
-      {content}
-    </McInfoAccordion>
-  ));
+  return <McInfoAccordions items={ACCORDIONS} />;
 }
