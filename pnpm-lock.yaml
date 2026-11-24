@@ -12,14 +12,14 @@ importers:
         specifier: ^5.108.0
         version: 5.108.0(react@18.3.1)
       matsci-parse:
-        specifier: 0.18.23
-        version: 0.18.23
+        specifier: 0.18.25
+        version: 0.18.25
       mc-react-header:
         specifier: 0.7.3
         version: 0.7.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       mc-react-library:
         specifier: ^0.7.14
-        version: 0.7.14(matsci-parse@0.18.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 0.7.14(matsci-parse@0.18.25)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       plotly.js-gl2d-dist-min:
         specifier: ^3.7.0
         version: 3.7.0
@@ -880,8 +880,8 @@ packages:
   magic-string@1.4.5:
     resolution: {integrity: sha512-oLLC2+YvQUfAa+vxoufE/yc1icb87M9iXIRqAoR/2EhE/8cb3SF/+Gi0c2By1B+5Vz2e2vQtUvHiu1+63Znh+w==}
 
-  matsci-parse@0.18.23:
-    resolution: {integrity: sha512-uMjkszF+WOl3N1jFCp5njDRG9rKZOBVa2WpQBn0HeWaeJmIGcqbdKnwyY1riA1gXPFeg41GMlQ6zhTaoRBjqEg==}
+  matsci-parse@0.18.25:
+    resolution: {integrity: sha512-LDm2idgX8fEu1tfYqTtwSqlmxkXK98YGUyY6Q3vWPsHrjqCm/Ib5nigfF2ZqNRYmAPAkHqvPEKH+Vclzyw/Sjg==}
 
   mc-react-header@0.7.3:
     resolution: {integrity: sha512-0Sd4rUVfaHiP68L0e0GDBD0om7J2Dc6zjG/NZXEpx5GBPPEKGEb9iFIC6JqzYWSLypxBQ96zNO9FVgeOTFBwqA==}
@@ -1656,7 +1656,7 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  matsci-parse@0.18.23:
+  matsci-parse@0.18.25:
     dependencies:
       '@spglib/moyo-wasm': 0.21.0
       txml: 6.0.3
@@ -1666,9 +1666,9 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  mc-react-library@0.7.14(matsci-parse@0.18.23)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  mc-react-library@0.7.14(matsci-parse@0.18.25)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
-      matsci-parse: 0.18.23
+      matsci-parse: 0.18.25
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 

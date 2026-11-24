@@ -26,7 +26,7 @@ function readTarGz(path) {
 }
 
 // all_complexes.csv has no quoted fields
-const csv = readFileSync(new URL("legacy-python/data/all_complexes.csv", root), "utf8")
+const csv = readFileSync(new URL("raw/all_complexes.csv", root), "utf8")
   .split("\n")
   .filter((line) => line !== "")
   .map((line) => line.split(","));
@@ -43,7 +43,7 @@ test("table.json: every CSV row, in order, with the same values", () => {
 });
 
 test("structures/: every complex, its CSV row and its .xyz file, unchanged", () => {
-  const tar = readTarGz("legacy-python/data/structures.tar.gz");
+  const tar = readTarGz("raw/structures.tar.gz");
   const dir = new URL("data/structures/", root);
   const published = {};
   for (const file of readdirSync(dir)) {

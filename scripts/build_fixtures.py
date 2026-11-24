@@ -2,7 +2,7 @@
 """Reference results of the Bokeh app's query for the JS tests
 (tests/fixtures/filters.json.gz).
 
-figure/query.py (get_data_sqla) selects, in table order, the rows where every
+The old app's (commit 81f54b9) figure/query.py (get_data_sqla) selects, in table order, the rows where every
 *active* filter holds, combined with AND:
   - a range filter (RangeSlider) is active unless its value equals the
     column's full range in columns.yml; then  col BETWEEN lo AND hi;
@@ -16,12 +16,12 @@ The same SQL runs on two SQLite tables:
   csv      built here from data/all_complexes.csv (the source of the web
            data) with the columns import_db.py creates, values parsed with
            Python's float()/int();
-  shipped  the table "Pd" of data/database.db, the database the deployed
+  shipped  the table "Pd" of raw/database.db, the database the deployed
            Bokeh app read. It is not identical to the CSV (see
-           MIGRATION_NOTES.md), so its results are recorded for comparison.
+           scripts/prepareForFrontend.py), so its results are recorded for comparison.
 Each result is stored as the CSV row indices, as a base64 bitmask.
 
-Needs PyYAML. Run:  python3 legacy-python/scripts/build_fixtures.py
+Needs PyYAML. Run:  python3 scripts/build_fixtures.py
 """
 import base64
 import csv
@@ -33,8 +33,8 @@ from pathlib import Path
 
 import yaml
 
-ROOT = Path(__file__).resolve().parents[2]
-DATA = ROOT / "legacy-python" / "data"
+ROOT = Path(__file__).resolve().parents[1]
+DATA = ROOT / "raw"
 CONFIG = ROOT / "src" / "config"
 OUT = ROOT / "tests" / "fixtures" / "filters.json.gz"
 

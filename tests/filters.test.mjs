@@ -1,5 +1,5 @@
 // Presets and filters against the Bokeh app's SQL query
-// (fixtures from legacy-python/scripts/build_fixtures.py).
+// (fixtures from scripts/build_fixtures.py).
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
@@ -42,7 +42,7 @@ test("presets give the filters of load_preset", () => {
 });
 
 // The deployed app's database.db differs from the CSV only in the Reaction
-// column (see MIGRATION_NOTES.md): without a Reaction filter, the rows agree.
+// column (see the docstring of scripts/prepareForFrontend.py): without a Reaction filter, the rows agree.
 test("without a Reaction filter, the rows are those of the shipped database.db", () => {
   for (const c of fixtures.cases) {
     if (c.filters.Reaction.length !== config.quantities.Reaction.values.length) continue;
@@ -56,9 +56,9 @@ test("duplicate warning", () => {
   assert.equal(duplicateWarning(config, "DeltaE", "DeltaE", "DeltaE"), "Warning: Descriptor doubly selected.");
 });
 
-test("the DeltaE palette is the one of figure/main.py", async () => {
+test("the DeltaE palette is the one of the old figure/main.py", async () => {
   const { DELTAE_PALETTE } = await import("../src/ccgenome/colors.js");
-  const main = readFileSync(new URL("legacy-python/figure/main.py", root), "utf8");
-  const python = main.match(/colorscale = \[([\s\S]*?)\]/)[1].match(/#[0-9A-F]{6}/g);
+  // the list of the old app's figure/main.py (commit 81f54b9), extracted once
+  const python = JSON.parse(readFileSync(new URL("tests/fixtures/bokeh-deltae-palette.json", root), "utf8")).colors;
   assert.deepEqual(DELTAE_PALETTE.flatMap(([c, n]) => Array(n).fill(c)), python);
 });

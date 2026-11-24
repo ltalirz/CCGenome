@@ -68,7 +68,7 @@ function publishData() {
 export default defineConfig({
   plugins: [react(), tailwindcss(), dropUnreferencedWasm(), yamlAsJson(), publishData()],
   // the data and the legacy app are not sources: don't watch their files
-  server: { watch: { ignored: ["**/data/**", "**/legacy-python/**"] } },
+  server: { watch: { ignored: ["**/data/**", "**/raw/**"] } },
   optimizeDeps: {
     include: ["mc-react-header"],
     // Required to run wasm modules in dev mode for vite.

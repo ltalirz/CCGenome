@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Prepare the data the web app serves (data/, served at data/) from the raw data.
 
-Input (legacy-python/data/):
+Input (raw/, in git: the files of the old app's repository, commit 81f54b9):
   all_complexes.csv   one row per complex (25,112 rows)
   structures.tar.gz   structures/<Name>.xyz for every complex
 
@@ -22,6 +22,28 @@ table.json are the CSV values parsed as doubles (Python's float(), the same
 double as JavaScript's parseFloat). Only the Python standard library is used.
 
 Run from anywhere:  python3 scripts/prepareForFrontend.py
+
+Decisions (against the old Bokeh app; its code is commit 81f54b9):
+
+- No database at runtime: the old app read raw/database.db (made by its
+  import_db.py); the web data comes from all_complexes.csv and the .xyz files.
+  The table keeps only the plotted columns; the structures are bundled by name
+  prefix (546 files, ~23 kB each), as 25,112 files would exceed Cloudflare
+  Pages' 20,000. structures.tar.gz also holds a JVM crash log
+  (hs_err_pid16900.log): not published.
+- The Reaction column: all_complexes.csv and database.db (same commit,
+  81f54b9) agree on every name and column except Reaction, which differs for
+  12,541 of 25,112 complexes (e.g. Suzuki: 202 in the CSV, 1,330 in the
+  database; each assigns other DeltaE windows). It is not a row shift: they
+  look like two versions of the reaction assignment. The app uses the CSV.
+  If database.db holds the correct one, take its Reaction column here and
+  rerun this script and scripts/build_fixtures.py. TO BE DECIDED BY THE DATA
+  OWNERS.
+- database.db was written by pandas 0.24 (float parsing not correctly
+  rounded): DeltaE differs from the CSV in the last bit for 4,663 rows, none
+  on the slider's 0.1 grid, so no filter selects differently. The app uses
+  the correctly rounded CSV values. scripts/build_fixtures.py checks the
+  filters of the app against the old SQL on both tables (tests/fixtures/).
 """
 import csv
 import json
@@ -30,7 +52,7 @@ import tarfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DATA = ROOT / "legacy-python" / "data"
+DATA = ROOT / "raw"
 OUT = ROOT / "data"
 
 # CSV header -> column id used by the app (the ids of src/config/columns.yml)
