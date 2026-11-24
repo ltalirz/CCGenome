@@ -28,7 +28,7 @@ export default function BackButton() {
     <button
       type="button"
       onClick={() => (key === "default" ? navigate("/") : navigate(-1))}
-      className="inline-flex items-center gap-1 rounded bg-[#337ab7] px-3 py-1 text-sm text-white hover:bg-[#286090]"
+      className="inline-flex items-center gap-1 rounded bg-[#0d6efd] px-3 py-1 text-sm text-white hover:bg-[#0b5ed7]"
     >
       <ArrowLeft />
       Back
